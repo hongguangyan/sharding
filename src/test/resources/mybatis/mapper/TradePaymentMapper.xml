@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="TradePaymentEntity">
+
+    <resultMap id="TradePaymentMap" type="TradePaymentEntity">
+        <id column="ID" property="id" javaType="java.lang.Long" jdbcType="BIGINT"/>
+        <result column="TBL_TRADE_REQUEST_ID" property="tradeRequestId" javaType="java.lang.Long" jdbcType="INTEGER"/>
+        <result column="PID" property="pid" javaType="java.lang.Long" jdbcType="BIGINT"/>
+        <result column="TRADE_DN" property="tradeDN" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result column="EXT_TRADE_DN" property="extTradeDN" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result column="TRADE_TYPE" property="tradeType" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+        <result column="MERCHANT_NO" property="merchantNo" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result column="TERMINAL_NO" property="terminalNo" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result column="SETTLE_MERCHANT_NO" property="settleMerchantNo" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result column="NOTIFY_URL" property="notifyUrl" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result column="BUSINESS_TYPE" property="businessType" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+        <result column="TRADE_AMOUNT" property="tradeAmount" javaType="java.math.BigDecimal" jdbcType="DECIMAL"/>
+        <result column="TRADE_COMP_AMOUNT" property="tradeCompAmount" javaType="java.math.BigDecimal" jdbcType="DECIMAL"/>
+        <result column="MERCHANT_FEE" property="merchantFee" javaType="java.math.BigDecimal" jdbcType="DECIMAL"/>
+        <result column="BANK_FEE" property="bankFee" javaType="java.math.BigDecimal" jdbcType="DECIMAL"/>
+        <result column="CURRENCY_TYPE" property="currencyType" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+        <result column="SETTLEMENT_BANK_ID" property="settlementBankId" javaType="java.lang.Long" jdbcType="BIGINT"/>
+        <result column="BANK_CARD_NO" property="bankCardNo" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result column="CARD_EXPIRE_DATE" property="cardExpireDate" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result column="CVV" property="cvv" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result column="ID_CARD_TYPE" property="idCardType" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+        <result column="ID_CARD_NO" property="idCardNo" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result column="CARD_HOLDER_NAME" property="cardHolderName" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result column="KEY_VERSION" property="keyVersion" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result column="AUTHORIZE_NO" property="authorizeNo" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result column="HANDLE_TYPE" property="handleType" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+        <result column="AUTHORIZE_AMOUNT" property="authorizeAmount" javaType="java.math.BigDecimal" jdbcType="DECIMAL"/>
+        <result column="AUTHORIZE_DATE" property="authorizeDate" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result column="SPLIT_TYPE" property="splitType" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+        <result column="SPLIT_INFO" property="splitInfo" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result column="TRADE_SOURCE" property="tradeSource" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+        <result column="TRADE_PAYMENT_STATUS" property="tradePaymentStatus" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+        <result column="FAIL_REASON" property="failReason" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result column="EXT_TRADE_REQ_TIME" property="extTradeReqTime" javaType="oracle.sql.TIMESTAMP" jdbcType="TIMESTAMP"/>
+        <result column="CREATE_TRADE_REQ_TIME" property="createTradeReqTime" javaType="oracle.sql.TIMESTAMP"  jdbcType="TIMESTAMP"/>
+        <result column="CREATE_TRADE_PAY_TIME" property="createTradePayTime" javaType="oracle.sql.TIMESTAMP"  jdbcType="TIMESTAMP"/>
+        <result column="CONFIRM_TRADE_PAY_TIME" property="confirmTradePayTime" javaType="oracle.sql.TIMESTAMP" jdbcType="TIMESTAMP"/>
+        <result column="BACK_UP" property="backUp" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result column="MODIFIED" property="modified" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result column="MODIFIED_TIME" property="modifiedTime" javaType="Date" jdbcType="TIMESTAMP"/>
+        <result column="MODIFIED_IP" property="modifiedIp" javaType="java.lang.String" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="TradePaymentColumns">
+		ID,
+		TBL_TRADE_REQUEST_ID,
+		PID,
+		TRADE_DN,
+		EXT_TRADE_DN,
+		TRADE_TYPE,
+		MERCHANT_NO,
+		TERMINAL_NO,
+		SETTLE_MERCHANT_NO,
+		NOTIFY_URL,
+		BUSINESS_TYPE,
+		TRADE_AMOUNT,
+		TRADE_COMP_AMOUNT,
+		MERCHANT_FEE,
+		BANK_FEE,
+		CURRENCY_TYPE,
+		SETTLEMENT_BANK_ID,
+		BANK_CARD_NO,
+		CARD_EXPIRE_DATE,
+		CVV,
+		ID_CARD_TYPE,
+		ID_CARD_NO,
+		CARD_HOLDER_NAME,
+		KEY_VERSION,
+		AUTHORIZE_NO,
+		HANDLE_TYPE,
+		AUTHORIZE_AMOUNT,
+		AUTHORIZE_DATE,
+		SPLIT_TYPE,
+		SPLIT_INFO,
+		TRADE_SOURCE,
+		TRADE_PAYMENT_STATUS,
+		FAIL_REASON,
+		EXT_TRADE_REQ_TIME,
+		CREATE_TRADE_REQ_TIME,
+		CREATE_TRADE_PAY_TIME,
+		CONFIRM_TRADE_PAY_TIME,
+		BACK_UP,
+		MODIFIED,
+		MODIFIED_TIME,
+		MODIFIED_IP
+	</sql>
+
+    <!--插入支付记录信息 -->
+    <insert id="insert" parameterType="TradePaymentEntity" keyProperty="id" useGeneratedKeys="true">
+        <selectKey resultType="java.lang.Long" keyProperty="id" order="BEFORE">
+            SELECT SEQ_TRADE_REQUEST.NEXTVAL FROM DUAL
+        </selectKey>
+        insert into TBL_TRADE_PAYMENT(
+        <include refid="TradePaymentColumns"></include>
+        )
+        values (
+        #{id},
+        #{tradeRequestId},
+        #{pid},
+        #{tradeDN},
+        #{extTradeDN},
+        #{tradeType},
+        #{merchantNo},
+        #{terminalNo},
+        #{settleMerchantNo},
+        #{notifyUrl},
+        #{businessType},
+        #{tradeAmount},
+        #{tradeCompAmount},
+        #{merchantFee},
+        #{bankFee},
+        #{currencyType},
+        #{settlementBankId},
+        #{bankCardNo},
+        #{cardExpireDate},
+        #{cvv},
+        #{idCardType},
+        #{idCardNo},
+        #{cardHolderName},
+        #{keyVersion},
+        #{authorizeNo},
+        #{handleType},
+        #{authorizeAmount},
+        #{authorizeDate},
+        #{splitType},
+        #{splitInfo},
+        #{tradeSource},
+        #{tradePaymentStatus},
+        #{failReason},
+        #{extTradeReqTime},
+        #{createTradeReqTime},
+        #{createTradePayTime},
+        #{confirmTradePayTime},
+        #{backUp},
+        #{modified},
+        #{modifiedTime},
+        #{modifiedIp}
+        )
+    </insert>
+
+    <!--根据交易请求id更新支付状态信息 -->
+    <update id="updateByTradeRequestId" parameterType="TradePaymentEntity">
+        update TBL_TRADE_PAYMENT
+        <set>
+            <if test="authorizeNo != null">
+                AUTHORIZE_NO = #{authorizeNo, jdbcType=VARCHAR javaType=string},
+            </if>
+            <if test="authorizeDate != null">
+                AUTHORIZE_DATE = #{authorizeDate,jdbcType=VARCHAR javaType=string},
+            </if>
+            <if test="authorizeAmount != null">
+                AUTHORIZE_AMOUNT = #{authorizeAmount, jdbcType=DECIMAL javaType=java.math.BigDecimal},
+            </if>
+            <if test="handleType != null">
+                HANDLE_TYPE = #{handleType, jdbcType=INTEGER javaType=Integer},
+            </if>
+            CONFIRM_TRADE_PAY_TIME = sysdate,
+            <if test="tradePaymentStatus != null">
+                TRADE_PAYMENT_STATUS = #{tradePaymentStatus jdbcType=INTEGER javaType=Integer},
+            </if>
+            <if test="failReason != null">
+                FAIL_REASON = #{failReason, jdbcType=VARCHAR javaType=string},
+            </if>
+        </set>
+        where
+        TBL_TRADE_REQUEST_ID = #{tradeRequestId}
+    </update>
+
+    <!--根据交易请求id查询支付记录-->
+    <select id="queryTradeReqId" parameterType="Long" resultMap="TradePaymentMap">
+        select
+        <include refid="TradePaymentColumns"></include>
+        from
+        TBL_TRADE_PAYMENT
+        where
+        TBL_TRADE_REQUEST_ID = #{tradeRequestId}
+    </select>
+
+</mapper>

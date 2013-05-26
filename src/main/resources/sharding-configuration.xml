@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sharding>
+    <systemconfig>
+        <!--虚拟地址长度-->
+        <virtualaddress>100</virtualaddress>
+    </systemconfig>
+</sharding>

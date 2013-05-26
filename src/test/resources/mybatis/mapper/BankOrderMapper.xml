@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="BankOrderEntity">
+
+    <resultMap id="bankOrderRecordMap" type="BankOrderEntity">
+        <id column="ID" property="id" jdbcType="INTEGER" javaType="java.lang.Long"/>
+        <result column="TBL_TRADE_REQUEST_ID" property="tradeRequestId" jdbcType="INTEGER" javaType="java.lang.Long"/>
+        <result column="TBL_TRADE_PAYMENT_ID" property="tradePaymentId" jdbcType="INTEGER" javaType="java.lang.Long"></result>
+        <result column="TRADE_DN" property="tradeDn" jdbcType="VARCHAR" javaType="java.lang.String"></result>
+        <result column="NOTIFY_URL" property="notifyUrl" jdbcType="VARCHAR" javaType="java.lang.String"></result>
+        <result column="BANK_ORDER_NO" property="bankOrderNo" jdbcType="VARCHAR" javaType="java.lang.String"></result>
+        <result column="BANK_INTERFACE_ID" property="bankInterfaceId" jdbcType="VARCHAR" javaType="java.lang.String"></result>
+        <result column="TRADE_AMOUNT" property="tradeAmount" jdbcType="DOUBLE" javaType="java.math.BigDecimal"></result>
+        <result column="CURRENCY_TYPE" property="currencyType" jdbcType="INTEGER" javaType="java.lang.Integer"></result>
+        <result column="BANK_CARD_NO" property="bankCardNo" jdbcType="VARCHAR" javaType="java.lang.String"></result>
+        <result column="TRADE_TYPE" property="tradeType" jdbcType="INTEGER" javaType="java.lang.Integer"></result>
+        <result column="BUSINESS_TYPE" property="businessType" jdbcType="INTEGER" javaType="java.lang.Integer"></result>
+        <result column="BANK_RETURN_NO" property="bankReturnNo" jdbcType="VARCHAR" javaType="java.lang.String"></result>
+        <result column="AUTHORIZE_NO" property="authorizeNo" jdbcType="VARCHAR" javaType="java.lang.String"></result>
+        <result column="AUTHORIZE_DATE" property="authorizeDate" jdbcType="TIMESTAMP" javaType="java.util.Date"></result>
+        <result column="ERROR_CODE" property="errorCode" jdbcType="VARCHAR" javaType="java.lang.String"></result>
+        <result column="ERROR_DESCRIPTION" property="errorDescription" jdbcType="VARCHAR" javaType="java.lang.String"></result>
+        <result column="BANK_ACCEPTED_AMOUNT" property="bankAcceptedAmount" jdbcType="DOUBLE" javaType="java.math.BigDecimal"></result>
+        <result column="BANK_ORDER_STATUS" property="bankOrderStatus" jdbcType="INTEGER" javaType="INTEGER"></result>
+        <result column="CREATE_TRADE_PAY_TIME" property="createTradePayTime" jdbcType="TIMESTAMP" javaType="java.util.Date"></result>
+        <result column="BANK_ORDER_REQ_TIME" property="bankOrderReqTime" jdbcType="TIMESTAMP" javaType="java.util.Date"></result>
+        <result column="BANK_ORDER_RETURN_TIME" property="bankOrderReturnTime" jdbcType="VARCHAR" javaType="java.lang.String"></result>
+        <result column="ACCEPT_CALLBACK_TIME" property="acceptCallBackTime" jdbcType="TIMESTAMP" javaType="java.util.Date"></result>
+        <result column="BANK_CONFIRM_TIME" property="bankConfirmTime" jdbcType="VARCHAR" javaType="java.lang.String"></result>
+        <result column="BACKUP" property="backup" jdbcType="VARCHAR" javaType="java.lang.String"></result>
+    </resultMap>
+
+    <sql id="BankOrderColumns">
+       ID,
+       TBL_TRADE_REQUEST_ID,
+       TBL_TRADE_PAYMENT_ID,
+       TRADE_DN,
+       BANK_ORDER_NO,
+       BANK_INTERFACE_ID,
+       CURRENCY_TYPE,
+       BANK_CARD_NO,
+       TRADE_AMOUNT,
+       BANK_ACCEPTED_AMOUNT,
+       TRADE_TYPE,
+       BUSINESS_TYPE,
+       BANK_RETURN_NO,
+       BANK_ORDER_STATUS,
+       ERROR_CODE,
+       ERROR_DESCRIPTION,
+       CREATE_TRADE_PAY_TIME,
+       BANK_ORDER_REQ_TIME,
+       BANK_ORDER_RETURN_TIME,
+       ACCEPT_CALLBACK_TIME,
+       BANK_CONFIRM_TIME
+
+    </sql>
+
+    <!-- 根据发往银行流水号查询银行订单记录 -->
+    <select id="queryBankOrderByNo" parameterType="java.lang.String" resultMap="bankOrderRecordMap">
+        select
+            <include refid="BankOrderColumns"></include>
+        from
+           TBL_TRADE_BANKORDER
+        where   BANK_ORDER_NO=#{bankOrderNo}
+    </select>
+
+    <!-- 根据请求流水号查询银行订单记录 -->
+    <select id="queryBankOrderByRequestNo" parameterType="Long" resultMap="bankOrderRecordMap">
+        select
+         <include refid="BankOrderColumns"></include>
+        from
+           TBL_TRADE_BANKORDER
+        where   TBL_TRADE_REQUEST_ID=#{tradeRequestNo}
+    </select>
+
+     <!-- 根据主键id查询银行订单记录 -->
+    <select id="queryBankOrderById" parameterType="Long" resultMap="bankOrderRecordMap">
+        select
+          <include refid="BankOrderColumns"></include>
+        from
+           TBL_TRADE_BANKORDER
+        where  id=#{id}
+    </select>
+
+    <!-- 插入银行订单记录-->
+    <insert id="insert" useGeneratedKeys="true" parameterType="BankOrderEntity">
+        <selectKey resultType="java.lang.Long" keyProperty="id" order="BEFORE">
+            SELECT SEQ_TRADE_REQUEST.NEXTVAL FROM DUAL
+        </selectKey>
+
+        insert into TBL_TRADE_BANKORDER
+        ( ID,
+        TBL_TRADE_REQUEST_ID,
+        TBL_TRADE_PAYMENT_ID,
+        TRADE_DN,
+        NOTIFY_URL,
+        BANK_ORDER_NO,
+        BANK_INTERFACE_ID,
+        TRADE_AMOUNT,
+        CURRENCY_TYPE,
+        BANK_CARD_NO,
+        TRADE_TYPE,
+        BUSINESS_TYPE,
+        BANK_RETURN_NO,
+        AUTHORIZE_NO,
+        AUTHORIZE_AMOUNT,
+        AUTHORIZE_DATE,
+        ERROR_CODE,
+        ERROR_DESCRIPTION,
+        BANK_ACCEPTED_AMOUNT,
+        BANK_ORDER_STATUS,
+        CREATE_TRADE_PAY_TIME,
+        BANK_ORDER_REQ_TIME,
+        BANK_ORDER_RETURN_TIME,
+        ACCEPT_CALLBACK_TIME,
+        BANK_CONFIRM_TIME,
+        BACKUP,
+        MODIFIED,
+        MODIFIED_TIME,
+        MODIFIED_IP
+        )
+        values
+        (
+        #{id jdbcType=INTEGER javaType=java.lang.Long},
+        #{tradeRequestId jdbcType=INTEGER javaType=java.lang.Long},
+        #{tradePaymentId jdbcType==INTEGER javaType=java.lang.Long},
+        #{tradeDn,jdbcType=VARCHAR javaType=java.lang.String},
+        #{notifyUrl jdbcType==VARCHAR javaType=java.lang.String},
+        #{bankOrderNo jdbcType==VARCHAR javaType=java.lang.String} ,
+        #{bankInterfaceId jdbcType==VARCHAR javaType=java.lang.String},
+        #{tradeAmount jdbcType==DOUBLE javaType=java.math.BigDecimal},
+        #{currencyType jdbcType==INTEGER javaType=java.lang.Integer},
+        #{bankCardNo  jdbcType==VARCHAR javaType=java.lang.String},
+        #{tradeType  jdbcType==INTEGER javaType=java.lang.Integer},
+        #{businessType  jdbcType==INTEGER javaType=java.lang.Integer},
+        #{bankReturnNo  jdbcType==VARCHAR javaType=java.lang.String},
+        #{authorizeNo  jdbcType==VARCHAR javaType=java.lang.String},
+        #{authorizeAmount  jdbcType==DOUBLE javaType=java.math.BigDecimal},
+        #{authorizeDate  jdbcType==VARCHAR javaType=java.lang.String},
+        #{errorCode jdbcType==VARCHAR javaType=java.lang.String},
+        #{errorDescription  jdbcType==VARCHAR javaType=java.lang.String},
+        #{bankAcceptedAmount  jdbcType==DOUBLE javaType=java.math.BigDecimal},
+        #{bankOrderStatus  jdbcType==INTEGER javaType=java.lang.Integer},
+        #{createTradePayTime  jdbcType==TIMESTAMP  javaType=java.util.Date},
+        #{bankOrderReqTime jdbcType==TIMESTAMP  javaType=java.util.Date},
+        #{bankOrderReturnTime  jdbcType==VARCHAR  javaType=java.lang.String},
+        #{acceptCallBackTime  jdbcType==TIMESTAMP  javaType=java.util.Date},
+        #{bankConfirmTime  jdbcType==VARCHAR  javaType=java.lang.String},
+        #{backup  jdbcType==VARCHAR javaType=java.lang.String},
+        #{modified  jdbcType==VARCHAR javaType=java.lang.String} ,
+        sysdate ,
+        #{modifiedIp  jdbcType==VARCHAR javaType=java.lang.String}
+        )
+    </insert>
+
+    <!-- 更新银行订单记录 -->
+    <update id="update" parameterType="BankOrderEntity">
+        update TBL_TRADE_BANKORDER
+        <set>
+            MODIFIED_TIME=sysdate,
+            <if test="bankCardNo != null">
+                BANK_CARD_NO = #{bankCardNo, jdbcType=VARCHAR },
+            </if>
+            <if test="bankReturnNo != null">
+                BANK_RETURN_NO = #{bankReturnNo, jdbcType=VARCHAR},
+            </if>
+            <if test="authorizeNo != null">
+                AUTHORIZE_NO = #{authorizeNo, jdbcType=VARCHAR},
+            </if>
+            <if test="authorizeDate != null">
+                AUTHORIZE_DATE = #{authorizeDate, jdbcType=TIMESTAMP },
+            </if>
+            <if test="authorizeAmount != null">
+                AUTHORIZE_AMOUNT = #{authorizeAmount, jdbcType=DOUBLE },
+            </if>
+            <if test="errorCode != null">
+                ERROR_CODE = #{errorCode, jdbcType=VARCHAR },
+            </if>
+            <if test="errorDescription != null">
+                ERROR_DESCRIPTION = #{errorDescription, jdbcType=VARCHAR },
+            </if>
+            <if test="bankAcceptedAmount != null">
+                BANK_ACCEPTED_AMOUNT = #{bankAcceptedAmount, jdbcType=DOUBLE },
+            </if>
+            <if test="bankOrderReturnTime != null">
+                BANK_ORDER_RETURN_TIME = #{bankOrderReturnTime, jdbcType=VARCHAR },
+            </if>
+            <if test="bankConfirmTime != null">
+                BANK_CONFIRM_TIME = #{bankConfirmTime, jdbcType=VARCHAR },
+            </if>
+            <if test="acceptCallBackTime != null">
+                ACCEPT_CALLBACK_TIME = #{acceptCallBackTime, jdbcType=TIMESTAMP },
+            </if>
+            <if test="bankOrderStatus != null">
+                BANK_ORDER_STATUS = #{bankOrderStatus, jdbcType=INTEGER }
+            </if>
+        </set>
+        Where
+        BANK_ORDER_NO= #{bankOrderNo,jdbcType=VARCHAR javaType=java.lang.String}
+    </update>
+
+    <!-- 根据人工输入查询参数查询银行订单记录（主要为人工补单查询用-->
+    <select id="queryBankOrderByManul" parameterType="java.util.Map" resultMap="bankOrderRecordMap">
+        select
+          TBL_TRADE_REQUEST_ID,TBL_TRADE_PAYMENT_ID,TRADE_DN,BANK_ORDER_NO,TRADE_AMOUNT,BANK_ACCEPTED_AMOUNT,TRADE_TYPE,BANK_RETURN_NO,BANK_ORDER_STATUS,CREATE_TRADE_PAY_TIME,BANK_ORDER_RETURN_TIME,BUSINESS_TYPE
+        from
+           TBL_TRADE_BANKORDER
+        <where>
+          <if test="bankOrderNo != null">
+                BANK_ORDER_NO = #{bankOrderNo}
+          </if>
+          <if test="bankReturnNo != null">
+                BANK_RETURN_NO = #{bankReturnNo}
+          </if>
+          <if test="bankReturnNo != null">
+                BANK_RETURN_NO = #{bankReturnNo}
+          </if>
+          <if test="bankAcceptedAmount != null">
+                BANK_ACCEPTED_AMOUNT = #{bankAcceptedAmount}
+          </if>
+        </where>
+    </select>
+
+
+   <!-- 更新银行订单记录（主要为人工补单更新操作） -->
+</mapper>

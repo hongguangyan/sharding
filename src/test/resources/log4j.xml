@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+<log4j:configuration xmlns:log4j='http://jakarta.apache.org/log4j/'
+                     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                     xsi:schemaLocation="http://jakarta.apache.org/log4j/ ">
+
+    <appender name="STDOUT" class="org.apache.log4j.ConsoleAppender">
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d{yyyy-MM-dd_HH:mm:ss}\t%F\t%L\t%M\t%m%n"/>
+        </layout>
+    </appender>
+
+    <appender name="DEBUG" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="File" value="d:/sharding-core.log"/>
+        <!--暂时路径，上线后修改为线上路径 -->
+        <param name="Append" value="true"/>
+        <param name="DatePattern" value="'.'yyyy-MM-dd-HH"/>
+        <param name="BufferedIO" value="true"/>
+        <!-- 8K为一个写单元 -->
+        <param name="BufferSize" value="8192"/>
+        <param name="maxFileSize" value="2GB"/>
+        <param name="maxBackupIndex" value="99999"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d{yyyy-MM-dd_HH:mm:ss}\t%F\t%L\t%M\t%m%n"/>
+        </layout>
+        <filter class="org.apache.log4j.varia.LevelRangeFilter">
+            <param name="LevelMin" value="DEBUG"/>
+            <param name="LevelMax" value="DEBUG"/>
+        </filter>
+    </appender>
+
+    <appender name="INFO" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="File" value="d:/sharding-core.log"/>
+        <param name="Append" value="true"/>
+        <param name="DatePattern" value="'.'yyyy-MM-dd-HH"/>
+        <param name="BufferedIO" value="true"/>
+        <!-- 8K为一个写单元 -->
+        <param name="BufferSize" value="8192"/>
+        <param name="maxFileSize" value="2GB"/>
+        <param name="maxBackupIndex" value="99999"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d{yyyy-MM-dd_HH:mm:ss}\t%F\t%L\t%M\t%m%n"/>
+        </layout>
+        <filter class="org.apache.log4j.varia.LevelRangeFilter">
+            <param name="LevelMin" value="INFO"/>
+            <param name="LevelMax" value="INFO"/>
+        </filter>
+    </appender>
+
+    <appender name="WARN" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="File" value="d:/sharding-core.log"/>
+        <param name="Append" value="true"/>
+        <param name="DatePattern" value="'.'yyyy-MM-dd-HH"/>
+        <param name="BufferedIO" value="true"/>
+        <!-- 8K为一个写单元 -->
+        <param name="BufferSize" value="8192"/>
+        <param name="maxFileSize" value="2GB"/>
+        <param name="maxBackupIndex" value="99999"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d{yyyy-MM-dd_HH:mm:ss}\t%F\t%L\t%M\t%m%n"/>
+        </layout>
+        <filter class="org.apache.log4j.varia.LevelRangeFilter">
+            <param name="LevelMin" value="WARN"/>
+            <param name="LevelMax" value="WARN"/>
+        </filter>
+    </appender>
+
+    <appender name="ERROR" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="File" value="d:/sharding-core.log"/>
+        <param name="Append" value="true"/>
+        <param name="DatePattern" value="'.'yyyy-MM-dd-HH"/>
+        <param name="BufferedIO" value="true"/>
+        <!-- 8K为一个写单元 -->
+        <param name="BufferSize" value="8192"/>
+        <param name="maxFileSize" value="2GB"/>
+        <param name="maxBackupIndex" value="99999"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d{yyyy-MM-dd_HH:mm:ss}\t%F\t%L\t%M\t%m%n"/>
+        </layout>
+        <filter class="org.apache.log4j.varia.LevelRangeFilter">
+            <param name="LevelMin" value="ERROR"/>
+            <param name="LevelMax" value="ERROR"/>
+        </filter>
+    </appender>
+
+    <appender name="FATAL" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="File" value="d:/sharding-core.log"/>
+        <param name="Append" value="true"/>
+        <param name="DatePattern" value="'.'yyyy-MM-dd-HH"/>
+        <param name="BufferedIO" value="true"/>
+        <!-- 8K为一个写单元 -->
+        <param name="BufferSize" value="8192"/>
+        <param name="maxFileSize" value="2GB"/>
+        <param name="maxBackupIndex" value="99999"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d{yyyy-MM-dd_HH:mm:ss}\t%F\t%L\t%M\t%m%n"/>
+        </layout>
+        <filter class="org.apache.log4j.varia.LevelRangeFilter">
+            <param name="LevelMin" value="FATAL"/>
+            <param name="LevelMax" value="FATAL"/>
+        </filter>
+    </appender>
+
+    <root>
+        <priority value="INFO"/>
+        <appender-ref ref="STDOUT"/>
+        <appender-ref ref="DEBUG"/>
+        <appender-ref ref="INFO"/>
+        <appender-ref ref="WARN"/>
+        <appender-ref ref="ERROR"/>
+        <appender-ref ref="FATAL"/>
+    </root>
+
+</log4j:configuration>
